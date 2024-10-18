@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation Example</title>
+    <style>
+        #location {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Get Your Current Location</h1>
+    <button id="getLocationButton">Show My Location</button>
+    <div id="location"></div>
+
+    <script>
+        document.getElementById('getLocationButton').addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        document.getElementById('location').innerText = 
+                            `Latitude: ${lat}, Longitude: ${lon}`;
+                    },
+                    (error) => {
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                document.getElementById('location').innerText = "User denied the request for Geolocation.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                document.getElementById('location').innerText = "Location information is unavailable.";
+                                break;
+                            case error.TIMEOUT:
+                                document.getElementById('location').innerText = "The request to get user location timed out.";
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                document.getElementById('location').innerText = "An unknown error occurred.";
+                                break;
+                        }
+                    }
+                );
+            } else {
+                document.getElementById('location').innerText = "Geolocation is not supported by this browser.";
+            }
+        });
+    </script>
+</body>
+</html>

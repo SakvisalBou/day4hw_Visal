@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Hobbies</title>
+  <style>
+    .media-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Hobbies</h1>
+
+  <h2>Favorite Hobby: Gardening</h2>
+
+  <div class="media-controls">
+    <button id="video-play-pause">Play</button>
+    <input type="range" id="video-volume" min="0" max="1" step="0.01" value="1">
+  </div>
+  <iframe width="560" height="315" src="https://youtu.be/pLQuIuokP6Q?si=jazc_34lCB8siWA7" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+  <div class="media-controls">
+    <button id="audio-play-pause">Play</button>
+    <input type="range" id="audio-volume" min="0" max="1" step="0.01" value="1">
+  </div>
+  <audio controls>
+    <source src="In Another Life.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const video = document.querySelector('iframe');
+    const videoPlayPauseBtn = document.getElementById('video-play-pause');
+    const videoVolumeSlider = document.getElementById('video-volume');
+
+    videoPlayPauseBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        videoPlayPauseBtn.textContent = 'Pause';
+      } else {
+        video.pause();
+        videoPlayPauseBtn.textContent = 'Play';
+      }
+    });
+
+    videoVolumeSlider.addEventListener('input', () => {
+      video.volume = videoVolumeSlider.value;
+    });
+
+    const audio = document.querySelector('audio');
+    const audioPlayPauseBtn = document.getElementById('audio-play-pause');
+    const audioVolumeSlider = document.getElementById('audio-volume');
+
+    audioPlayPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        audioPlayPauseBtn.textContent = 'Pause';
+      } else {
+        audio.pause();
+        audioPlayPauseBtn.textContent = 'Play';
+      }
+    });
+
+    audioVolumeSlider.addEventListener('input', () => {
+      audio.volume = audioVolumeSlider.value;
+    });
+  </script>
+</body>
+</html>

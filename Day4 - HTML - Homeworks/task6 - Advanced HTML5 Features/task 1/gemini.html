@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Theme Color Selector</title>
+  <style>
+    body {
+      background-color: #fff; /* Default background color */
+    }
+  </style>
+</head>
+<body>
+  <select id="themeColorSelect">
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+    <option value="red">Red</option>
+  </select>
+
+  <script>
+    const themeColorSelect = document.getElementById('themeColorSelect');
+    const body = document.body;
+
+    // Load the saved theme color from localStorage
+    const savedThemeColor = localStorage.getItem('themeColor');
+    if (savedThemeColor) {
+      body.style.backgroundColor = savedThemeColor;
+      themeColorSelect.value = savedThemeColor;
+    }
+
+    themeColorSelect.addEventListener('change', () => {
+      const selectedColor = themeColorSelect.value;
+      body.style.backgroundColor = selectedColor;
+
+      // Save the selected color to localStorage
+      localStorage.setItem('themeColor', selectedColor);
+    });
+  </script>
+</body>
+</html>

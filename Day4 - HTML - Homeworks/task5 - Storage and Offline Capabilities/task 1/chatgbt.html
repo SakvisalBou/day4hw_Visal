@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball Game</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Bouncing Ball Game</h1>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let ball = {
+            x: 50,
+            y: 50,
+            radius: 20,
+            dx: 2, // Change in x (speed in x direction)
+            dy: 2, // Change in y (speed in y direction)
+            color: 'blue'
+        };
+
+        function drawBall() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+            ctx.fillStyle = ball.color; // Set ball color
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function updateBall() {
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            // Check for wall collisions
+            if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+                ball.dx = -ball.dx; // Reverse direction
+                changeColor(); // Change color
+            }
+            if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+                ball.dy = -ball.dy; // Reverse direction
+                changeColor(); // Change color
+            }
+        }
+
+        function changeColor() {
+            ball.color = '#' + Math.floor(Math.random() * 16777215).toString(16); // Random color
+        }
+
+        function gameLoop() {
+            drawBall();
+            updateBall();
+            requestAnimationFrame(gameLoop); // Call gameLoop again for next frame
+        }
+
+        gameLoop(); // Start the game loop
+    </script>
+</body>
+</html>

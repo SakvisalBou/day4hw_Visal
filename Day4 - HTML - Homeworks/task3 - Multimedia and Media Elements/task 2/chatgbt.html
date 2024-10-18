@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Hobby and Audio</title>
+    <style>
+        .controls {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Favorite Hobby: Painting</h1>
+    
+    <h2>Watch This Video!</h2>
+    <div id="video-container">
+        <iframe id="youtube-video" width="560" height="315" 
+            src="https://youtu.be/mT0RNrTDHkI?si=Wv7HsdCwgcXBCLsG" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+        <div class="controls">
+            <button onclick="playVideo()">Play</button>
+            <button onclick="pauseVideo()">Pause</button>
+        </div>
+    </div>
+
+    <h2>Listen to This Audio</h2>
+    <audio id="audio-player" controls>
+        <source src="In Another Life.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="controls">
+        <button onclick="playAudio()">Play</button>
+        <button onclick="pauseAudio()">Pause</button>
+        <label for="volume">Volume:</label>
+        <input type="range" id="volume" value="1" min="0" max="1" step="0.1" onchange="setVolume(this.value)">
+    </div>
+    
+    <script>
+        // YouTube API
+        const player = new YT.Player('youtube-video', {
+            events: {
+                'onReady': onPlayerReady,
+            }
+        });
+
+        function onPlayerReady(event) {
+            window.playVideo = function() {
+                event.target.playVideo();
+            };
+            window.pauseVideo = function() {
+                event.target.pauseVideo();
+            };
+        }
+
+        // Audio Controls
+        const audio = document.getElementById('audio-player');
+
+        function playAudio() {
+            audio.play();
+        }
+
+        function pauseAudio() {
+            audio.pause();
+        }
+
+        function setVolume(value) {
+            audio.volume = value;
+        }
+    </script>
+    
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
